@@ -1,0 +1,716 @@
+{
+  "name": "爬取网站资料转换成PDF",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://cn.bing.com/search",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ $json.key_word }}{{ $json.filter }}"
+            },
+            {
+              "name": "qs",
+              "value": "HS"
+            },
+            {
+              "name": "sc",
+              "value": "10-0"
+            },
+            {
+              "name": "cvid",
+              "value": "C62A5D67EC9049AC99B2F2C943CD5A14"
+            },
+            {
+              "name": "sp",
+              "value": "1"
+            },
+            {
+              "name": "lq",
+              "value": "0"
+            },
+            {
+              "name": "FPIG",
+              "value": "BA1BC20C3BA24407B1736A57A7A94109"
+            },
+            {
+              "name": "first",
+              "value": "10"
+            },
+            {
+              "name": "FORM",
+              "value": "PORE"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "your_cookie"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        400,
+        112
+      ],
+      "id": "44d41801-1975-4ecc-ab9d-9ec30aad4f95",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "site",
+              "cssSelector": "h2>a",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        688,
+        112
+      ],
+      "id": "67834fd0-89ef-4076-af33-438982e5ea51",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.site }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            },
+            {
+              "name": "accept-language",
+              "value": "zh-CN,zh;q=0.9,en;q=0.8"
+            },
+            {
+              "name": "cache-control",
+              "value": "max-age=0"
+            },
+            {
+              "name": "priority",
+              "value": "u=0, i"
+            },
+            {
+              "name": "sec-ch-ua",
+              "value": "\"Not(A:Brand\";v=\"8\", \"Chromium\";v=\"144\", \"Google Chrome\";v=\"144\""
+            },
+            {
+              "name": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "name": "sec-ch-ua-platform",
+              "value": "\"Windows\""
+            },
+            {
+              "name": "sec-fetch-dest",
+              "value": "document"
+            },
+            {
+              "name": "sec-fetch-mode",
+              "value": "navigate"
+            },
+            {
+              "name": "sec-fetch-site",
+              "value": "cross-site"
+            },
+            {
+              "name": "sec-fetch-user",
+              "value": "?1"
+            },
+            {
+              "name": "upgrade-insecure-requests",
+              "value": "1"
+            },
+            {
+              "name": "user-agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"
+            },
+            {
+              "name": "cookie",
+              "value": "__snaker__id=cNrKPaIsrtcOpegB;SESSIONID=RQ1HCeJaXCwbrCXciICKe3UpWK9y7TMKLrzEzXWJWYf;_xsrf=ARV7yN6zsXie1e4EQy6RYzccwgkdDTTe;_zap=51abc2c9-df91-4fd4-b083-691f92617b75;d_c0=lyZU1ZX7bhuPTjxfV0NPslh5A0YIPERLdn4=|1764084394;z_c0=2|1:0|10:1770209260|4:z_c0|92:Mi4xai1KV0x3QUFBQUNYSmxUVmxmdHVHeVlBQUFCZ0FsVk43STF3YWdCRy1URVB1MVp6QjVuRGl4cU5nVnBNTzhQSkZn|757765185b958b24b072a7c0996bd8a8c565796659c9d6d505289d9f1b6520fd;__zse_ck=005_ZEIFMwVv1s=y/CB=pqeoASETRBSB3ACZBi3IK/0jFqs3xiY2d4hIygzEyqgn9Zwq3ytR4z5EeYQLqqV5Qp0jS3OziaDrs5HHAOQrW5nTlViMOFq0zDoVdhKloc6Je5Kk-5zFYz0QAfVk0d0Bkp5I9HSwRDitaKsSSIN5TjHuLntgSrC6W34iNte8k1q4HocRug87UP0wmYWmfDXJbkECsMsnmhgYZCpQ/WNijaTwDGxTp3R/0PUFRssDnNvMe/dgn;BEC=e1c54da93084895c0a83436aab72857b;"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1344,
+        256
+      ],
+      "id": "3c672002-ed9f-4ab0-84c3-a7475ca91367",
+      "name": "HTTP Request1",
+      "retryOnFail": true,
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:3000/forms/chromium/convert/html",
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "files[]",
+              "inputDataFieldName": "html"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-make-pdf.makePdf",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        864
+      ],
+      "id": "3d7de903-45a9-48e8-b404-ca05e9748329",
+      "name": "Make PDF",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "site",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1184,
+        240
+      ],
+      "id": "0f9c3766-8ba6-4659-94d2-ae2fabc02f8f",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "html": "={{ $json.cleanedHtml }}"
+      },
+      "type": "n8n-nodes-webpage-content-extractor.webpageContentExtractor",
+      "typeVersion": 1,
+      "position": [
+        2064,
+        304
+      ],
+      "id": "e8456a8a-a657-4e68-9798-4eb1a4759a1b",
+      "name": "WebpageContentExtractor",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "ec10f259-b773-4eeb-97fa-67f1acfffdb8",
+              "leftValue": "={{ $json.bodyPreview }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "36bc9cee-35fa-41df-ae19-c111750150bf",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "404",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            },
+            {
+              "id": "f3d7e012-2df4-4767-9b66-d137618ccea3",
+              "leftValue": "={{ $json.validationScore }}",
+              "rightValue": 50,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            },
+            {
+              "id": "54d93420-a2f1-456a-ac8e-83db74aa20fe",
+              "leftValue": "={{ $json.isValid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1808,
+        288
+      ],
+      "id": "edb66ebe-319a-42f7-ad4e-4c1620afa0f5",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "fromEmail": "={{ $('输入关键词你的邮箱地址').first().json.email }}",
+        "toEmail": "={{ $('输入关键词和你的邮箱地址').first().json.email }}",
+        "subject": "={{ $('输入关键词和你的邮箱地址').first().json.key_word }} 资料整理",
+        "html": "=",
+        "options": {
+          "attachments": "=data"
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        560,
+        864
+      ],
+      "id": "e976f61b-fbe2-4d61-b2c2-ba22658026cb",
+      "name": "Send an Email",
+      "webhookId": "34e6c9a9-670e-42d5-a5d6-28ea67f09dfb",
+      "credentials": {
+        "smtp": {
+          "id": "s2zQIEGdXTWJ6CAl",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        192
+      ],
+      "id": "e37db2f7-edbf-405a-9e38-d70d9e8a5a36",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://cn.bing.com/search",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ $json.key_word }}{{ $json.filter }}"
+            },
+            {
+              "name": "qs",
+              "value": "HS"
+            },
+            {
+              "name": "sc",
+              "value": "10-0"
+            },
+            {
+              "name": "cvid",
+              "value": "C62A5D67EC9049AC99B2F2C943CD5A14"
+            },
+            {
+              "name": "sp",
+              "value": "1"
+            },
+            {
+              "name": "lq",
+              "value": "0"
+            },
+            {
+              "name": "FPIG",
+              "value": "BA1BC20C3BA24407B1736A57A7A94109"
+            },
+            {
+              "name": "first",
+              "value": "20"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cookie",
+              "value": "your_cookie"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        416,
+        304
+      ],
+      "id": "8cfb1d41-4ec3-4ce8-ab44-27f6bbdac990",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "site",
+              "cssSelector": "h2>a",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        672,
+        336
+      ],
+      "id": "f105a828-c4ed-45c1-a5b6-99ab3078adf8",
+      "name": "HTML1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        992,
+        224
+      ],
+      "id": "ab338ee0-c28e-415b-93e4-78efb00f1ad2",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst items = $input.all();\nitems[0].binary.data.fileName = `$('输入关键词和你的邮箱地址').first().json.key_word.pdf`\n\nreturn items;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        880
+      ],
+      "id": "02e92243-0930-492b-95d1-fda8229836b5",
+      "name": "更改文件名称"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst keyword = $('输入关键词和你的邮箱地址').first().json.key_word;\n\nlet readerHtml = `\n<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>${keyword}文章推送</title>\n<style>\nbody {\n  font-family: 'Georgia','宋体','Times New Roman',serif;\n  background:#faf9f8;\n  color:#2c3e50;\n  line-height:1.8;\n  margin:0;\n  padding:40px 20px;\n}\n.reader-container{\n  max-width:800px;\n  margin:0 auto;\n  background:white;\n  box-shadow:0 10px 30px rgba(0,0,0,0.1);\n  padding:60px 80px;\n}\n</style>\n</head>\n<body>\n<div class=\"reader-container\">\n\n<div class=\"cover\">\n<h1>${keyword}</h1>\n<p>共收录 ${items.length} 篇文章 · ${new Date().toLocaleDateString()}</p>\n</div>\n`;\n\nitems.forEach((item,index)=>{\n\n  const article = item.json;\n\n  readerHtml += `\n  <article style=\"page-break-before:${index===0?'auto':'always'}\">\n    <h1>${article.title || '无标题'}</h1>\n\n    <div>\n      ${article.siteName || ''}\n      ${article.byline ? `作者：${article.byline}`:''}\n      ${article.publishedTime ? ` · ${article.publishedTime}`:''}\n    </div>\n\n    <div>\n      ${article.textcontent || article.content || ''}\n    </div>\n  </article>\n  `;\n});\n\nreaderHtml += `\n</div>\n</body>\n</html>\n`;\n\n// ⭐ 转 base64\nconst base64Data = Buffer.from(readerHtml).toString('base64');\n\nreturn [{\n  json: {\n    // 添加JSON格式的HTML字段，供Make PDF节点使用\n    html: readerHtml,  // 这是原始的HTML字符串\n  },\n  binary:{\n    html:{\n      data: base64Data,\n      mimeType:'text/html',\n      fileName:`index.html`\n    }\n  }\n}];\n\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2400,
+        320
+      ],
+      "id": "b74e7a96-80ed-4880-935c-18fa5c35e773",
+      "name": "更改数据格式"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst results = [];\n\nitems.forEach((item,index)=>{\n    try {\n        let rawData = item.json.data;\n        \n        if (!rawData) {\n            throw new Error('数据为空');\n        }\n        \n        if (typeof rawData !== 'string') {\n            rawData = String(rawData);\n        }\n        \n        // 清洗转义字符\n        rawData = rawData.replace(/\\\\\"/g, '\"')\n                         .replace(/\\\\n/g, '\\n')\n                         .replace(/\\\\t/g, '\\t')\n                         .replace(/\\\\\\\\/g, '\\\\');\n        \n        // ========== 增强版HTML验证 ==========\n        \n        // 1. 基础标签验证\n        const hasHtmlTags = /<[^>]+>/g.test(rawData);\n        \n        // 2. 检查DOCTYPE (HTML5标准)\n        const hasDoctype = /<!doctype\\s+html>/i.test(rawData);\n        \n        // 3. 检查html根标签\n        const hasHtmlTag = /<html[^>]*>/i.test(rawData);\n        const hasClosingHtml = /<\\/html>/i.test(rawData);\n        \n        // 4. 检查head标签\n        const hasHeadTag = /<head[^>]*>/i.test(rawData);\n        const hasClosingHead = /<\\/head>/i.test(rawData);\n        \n        // 5. 检查body标签\n        const hasBodyTag = /<body[^>]*>/i.test(rawData);\n        const hasClosingBody = /<\\/body>/i.test(rawData);\n        \n        // 6. 检查标题标签\n        const hasTitleTag = /<title[^>]*>.*?<\\/title>/i.test(rawData);\n        \n        // 7. 检查元数据标签\n        const hasMetaTags = /<meta[^>]*>/i.test(rawData);\n        \n        // 8. 检查基本结构完整性\n        const hasBasicStructure = hasDoctype || (hasHtmlTag && hasClosingHtml);\n        \n        // 9. 检查内容长度（太短可能是无效HTML）\n        const contentLength = rawData.length;\n        const isReasonableLength = contentLength > 500;  // 有效HTML通常超过500字符\n        \n        // 10. 检查标签平衡（简单版：统计常见标签数量）\n        const openTags = (rawData.match(/<[^/][^>]*>/g) || []).length;\n        const closeTags = (rawData.match(/<\\/[^>]+>/g) || []).length;\n        const tagBalance = Math.abs(openTags - closeTags) < 10;  // 标签数量大致平衡\n        \n        // 11. 检查是否有文本内容（不仅仅是标签）\n        const textContent = rawData.replace(/<[^>]+>/g, '').replace(/\\s+/g, ' ').trim();\n        const hasTextContent = textContent.length > 100;\n        \n        // 12. 检查常见编码声明\n        const hasCharset = /charset\\s*=\\s*[\"']?utf-8?[\"']?/i.test(rawData);\n        \n        // 13. 检查中文内容个数\n        const chineseChars = textContent.match(/[\\u4e00-\\u9fa5]/g) || [];\n        const chineseCount = chineseChars.length;\n        // 14. 检查是否可能是JSON而非HTML（快速检测）\n        const looksLikeJson = rawData.trim().startsWith('{') || rawData.trim().startsWith('[');\n        \n        // ========== 综合评分 ==========\n        \n        const validationScore = [\n            hasHtmlTags ? 5 : 0,\n            hasDoctype ? 10 : 0,\n            hasHtmlTag ? 5 : 0,\n            hasClosingHtml ? 5 : 0,\n            hasHeadTag&&hasClosingHead ? 5 : 0,\n            hasBodyTag&&hasClosingBody ? 10 : 0,\n            hasTitleTag ? 10 : 0,\n            hasMetaTags ? 5 : 0,\n            hasBasicStructure ? 20 : 0,\n            isReasonableLength ? 10 : 0,\n            tagBalance ? 10 : 0,\n            hasTextContent ? 10 : 0,\n            chineseCount>100 ? 5 : -50,\n            !looksLikeJson ? 5 : -20  // 看起来像JSON的直接扣分\n        ].reduce((a, b) => a + b, 0);\n        \n        // ========== 验证结果 ==========\n        \n        const isValid = validationScore >= 50;  // 总分50分以上算有效HTML\n        \n        // 详细的验证结果\n        const validationDetails = {\n            hasHtmlTags,\n            hasDoctype,\n            hasHtmlTag,\n            hasClosingHtml,\n            hasHeadTag,\n            hasBodyTag,\n            hasTitleTag,\n            hasMetaTags,\n            hasBasicStructure,\n            isReasonableLength,\n            tagBalance,\n            hasTextContent,\n            hasCharset,\n            chineseCount,\n            looksLikeJson,\n            openTagsCount: openTags,\n            closeTagsCount: closeTags,\n            textLength: textContent.length,\n            validationScore\n        };\n        \n        // 提取标题用于验证\n        const titleMatch = rawData.match(/<title[^>]*>([^<]+)<\\/title>/i);\n        const title = titleMatch ? titleMatch[1].trim() : '未找到标题';\n        \n        // 提取正文预览\n        const bodyMatch = rawData.match(/<body[^>]*>([\\s\\S]*?)<\\/body>/i);\n        const bodyPreview = bodyMatch ? bodyMatch[1].substring(0, 300) : '';\n        \n        console.log(`第 ${item.json.index || results.length + 1} 个item:`);\n        console.log(`- 标题: ${title}`);\n        console.log(`- 验证分数: ${validationScore}/100`);\n        console.log(`- 是否有效: ${isValid ? '是' : '否'}`);\n        console.log(`- 标签数量: 开=${openTags} 关=${closeTags}`);\n        console.log(`- 文本长度: ${textContent.length}`);\n        \n        results.push({\n            json: {\n                index: item.json.index || results.length + 1,\n                url: $('HTML').first().json.site[index] || '',\n                \n                // 清洗后的完整HTML\n                cleanedHtml: rawData,\n                \n                // 提取的元数据\n                title: title,\n                \n                // 增强验证结果\n                isValid: isValid,\n                validationScore: validationScore,\n                validationDetails: validationDetails,\n                \n                // 预览\n                bodyPreview: bodyPreview.substring(0, 500),\n                textPreview: textContent.substring(0, 500),\n                \n                // 为后续节点准备的binary格式\n                binary: {\n                    data: {\n                        data: Buffer.from(rawData).toString('base64'),\n                        mimeType: 'text/html',\n                        fileName: `page_${item.json.index || results.length + 1}.html`\n                    }\n                }\n            }\n        });\n        \n    } catch (error) {\n        console.error('处理出错:', error.message);\n        results.push({\n            json: {\n                index: item.json.index || results.length + 1,\n                url: item.json.url || '',\n                error: error.message,\n                isValid: false,\n                validationScore: 0,\n                validationDetails: { error: error.message },\n                cleanedHtml: '<html><body>Error processing content</body></html>',\n                title: '处理失败'\n            }\n        });\n    }\n})\n\n// 统计\nconst validItems = results.filter(r => r.json.isValid);\nconsole.log(`\\n统计: 总共 ${results.length} 个items`);\nconsole.log(`有效HTML: ${validItems.length} 个`);\nconsole.log(`无效HTML: ${results.length - validItems.length} 个`);\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1600,
+        272
+      ],
+      "id": "c017825e-6b72-4112-a507-6cc13f3a3ffb",
+      "name": "清理不合格网站"
+    },
+    {
+      "parameters": {
+        "content": "这是一个通过bing搜索引擎搜索关键词然后爬取网站资料并提取成一个PDF然后发送到你的邮箱的工作流！\n\n\"This is a workflow that searches for keywords through the Bing search engine, then crawls website information, extracts it into a PDF, and sends it to your email!\"\n",
+        "height": 240,
+        "width": 432
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -272,
+        -176
+      ],
+      "typeVersion": 1,
+      "id": "05623dd3-5c42-490d-816a-2a38b667d09e",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f4c3b25f-2d87-4c88-be90-36dfc8be75c5",
+              "name": "key_word",
+              "value": "n8n部署",
+              "type": "string"
+            },
+            {
+              "id": "b34dbbaf-c4cd-4c41-8672-3f171a039d82",
+              "name": "filter",
+              "value": "-site:bilibili.com -site:douyin.com",
+              "type": "string"
+            },
+            {
+              "id": "5ace8eaa-d0ff-453f-9693-4cef4007b6d4",
+              "name": "email",
+              "value": "your_email@126.com",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        128,
+        208
+      ],
+      "id": "f01e6e2f-bd77-4878-b859-4a225e9a1661",
+      "name": "输入关键词和你的邮箱地址"
+    },
+    {
+      "parameters": {
+        "content": "请你自己在http request节点添加自己的header cookie",
+        "height": 80,
+        "width": 272,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        336,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "c2cd7326-4330-4b4f-a87e-05d786e6693d",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "清理不合格网站",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WebpageContentExtractor": {
+      "main": [
+        [
+          {
+            "node": "更改数据格式",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "WebpageContentExtractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Make PDF": {
+      "main": [
+        [
+          {
+            "node": "更改文件名称",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "输入关键词和你的邮箱地址",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "HTML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "更改文件名称": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "更改数据格式": {
+      "main": [
+        [
+          {
+            "node": "Make PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "清理不合格网站": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "输入关键词和你的邮箱地址": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send an Email": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "c26fb4c9-33a7-4b91-ba0a-c9e5a3bc6c2c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7f37552ced5a9431b747cf098ff2a574dd34eb23db76a7d3411ac5807daaa4df"
+  },
+  "id": "AX9MqJvjX3Nf3qjkDJi3c",
+  "tags": []
+}
