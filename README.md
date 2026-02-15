@@ -30,7 +30,7 @@ Bing搜索 → 网页抓取 → PDF生成 → 邮件发送
 - 稳定的网络环境（用于访问 Bing 和目标网站）
 - 为了让 "Make PDF" 节点（工作流内部的一个节点）正常工作，你需要一个正在运行的 Gotenberg 服务。它负责将 HTML 内容转换为 PDF 文件。
 
-如果你在本地运行 n8n（或者 `docker` 部署），可以直接在终端执行以下命令。这会在后台启动一个 Gotenberg 容器，并将容器的 3000 端口映射到你电脑的 3000 端口。
+如果你在本地运行 n8n（ `docker` 部署），可以直接在终端执行以下命令。这会在后台启动一个 Gotenberg 容器，并将容器的 3000 端口映射到你电脑的 3000 端口。
 
 ```bash
 docker run -d --name gotenberg -p 3000:3000 gotenberg/gotenberg:8
